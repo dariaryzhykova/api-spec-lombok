@@ -1,6 +1,7 @@
 # API testing with Lombok library and Groovy
 
 Link to API: https://reqres.in/
+
 Run tests: ```gradle clean test```
 
 Useful links:
