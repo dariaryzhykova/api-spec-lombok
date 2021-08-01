@@ -1,0 +1,47 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+}
+
+def
+    junitVersion = "5.7.2"
+
+dependencies {
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+    testCompile(
+            //client
+            "io.rest-assured:rest-assured:4.2.0",
+            //config
+            "org.aeonbits.owner:owner:1.0.12",
+            //json
+            "com.fasterxml.jackson.core:jackson-databind:2.11.2",
+            //JUnit
+            "org.junit.jupiter:junit-jupiter-api:5.6.2",
+            "org.junit.jupiter:junit-jupiter-engine:5.6.2",
+            "org.junit.jupiter:junit-jupiter-params:5.6.2",
+            //lombok
+            'org.projectlombok:lombok:1.18.20',
+            "com.github.javafaker:javafaker:1.0.2"
+    )
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+tasks.withType(Test) {
+    systemProperties(System.getProperties())
+    useJUnitPlatform()
+    testLogging {
+        lifecycle {
+//            events "started", "failed"
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
